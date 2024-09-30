@@ -117,6 +117,12 @@ myst_substitutions = {
 }
 myst_heading_anchors = 3
 
+# -- Options for sphinx.ext.autodoc extension --------------------------------
+
+autodoc_default_options = {
+    'ignore-module-all': True,
+}
+
 # -- Options for sphinxcontrib.apidoc extension ------------------------------
 
 apidoc_excluded_paths = []
