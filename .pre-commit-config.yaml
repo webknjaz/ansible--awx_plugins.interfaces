@@ -185,6 +185,7 @@ repos:
     alias: mypy-py313
     name: MyPy, for Python 3.13
     additional_dependencies:
+    - django-types  # FIXME: delete this line once Django is no longer imported
     - hypothesis
     - lxml  # dep of `--txt-report`, `--cobertura-xml-report` & `--html-report`
     - pytest
@@ -198,6 +199,7 @@ repos:
     alias: mypy-py312
     name: MyPy, for Python 3.12
     additional_dependencies:
+    - django-types  # FIXME: delete this line once Django is no longer imported
     - hypothesis
     - lxml  # dep of `--txt-report`, `--cobertura-xml-report` & `--html-report`
     - pytest
@@ -211,6 +213,7 @@ repos:
     alias: mypy-py311
     name: MyPy, for Python 3.11
     additional_dependencies:
+    - django-types  # FIXME: delete this line once Django is no longer imported
     - hypothesis
     - lxml  # dep of `--txt-report`, `--cobertura-xml-report` & `--html-report`
     - pytest
