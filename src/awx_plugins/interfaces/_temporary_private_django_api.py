@@ -30,7 +30,9 @@ else:  # FIXME: eventually, this should not exist  # pragma: no cover
 try:
     # FIXME: delete Django imports from this project
     # pylint: disable-next=unused-import
-    from django.utils.translation import gettext_lazy  # noqa: WPS433
+    from django.utils.translation import (  # noqa: WPS433
+        gettext_lazy as gettext_lazy,
+    )
 except ImportError:  # FIXME: eventually, this should not exist
     def gettext_lazy(message: str) -> str:  # noqa: WPS440
         """Emulate a Django-imported lazy translator.
@@ -46,7 +48,9 @@ except ImportError:  # FIXME: eventually, this should not exist
 try:
     # FIXME: delete Django imports from this project
     # pylint: disable-next=unused-import
-    from django.utils.translation import gettext_noop  # noqa: WPS433
+    from django.utils.translation import (  # noqa: WPS433
+        gettext_noop as gettext_noop,
+    )
 except ImportError:  # FIXME: eventually, this should not exist
     def gettext_noop(message: str) -> str:  # noqa: WPS440
         """Emulate a Django-imported no-op.

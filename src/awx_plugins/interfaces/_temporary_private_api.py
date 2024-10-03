@@ -8,7 +8,7 @@ The hope is that it will be refactored into something more standardized.
 try:
     # pylint: disable-next=unused-import
     from awx.main.models.credential import (  # noqa: WPS433
-        ManagedCredentialType,
+        ManagedCredentialType as ManagedCredentialType,
     )
 except ImportError:  # FIXME: eventually, this should not exist
     from dataclasses import dataclass  # noqa: WPS433
