@@ -10,7 +10,7 @@ import pathlib
 __all__ = ()  # noqa: WPS410
 
 
-@functools.cache
+@functools.cache  # type: ignore[misc]
 def detect_server_product_name() -> str:
     """Compute the official runtime name.
 
