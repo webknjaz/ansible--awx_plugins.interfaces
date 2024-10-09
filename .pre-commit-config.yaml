@@ -19,7 +19,7 @@ repos:
       (?:
         setup
         |src(?:
-          /awx_plugins(?:
+          /[^/]+(?:
             /[^/]+
           )?
         )?/__init__
