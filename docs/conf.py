@@ -5,6 +5,7 @@ import os
 import sys
 from importlib.metadata import version as _retrieve_metadata_version_for
 from pathlib import Path
+from tomllib import loads as _parse_toml
 
 
 # -- Path setup --------------------------------------------------------------
@@ -33,7 +34,9 @@ elif IS_RTD_ENV:
 sys.path.insert(0, str(DOCS_ROOT_DIR / '_ext'))
 
 
-project = 'awx_plugins.interfaces'
+project = _parse_toml(
+    (PROJECT_ROOT_DIR / 'pyproject.toml').read_text(),
+)['project']['name']
 author = 'Ansible maintainers and contributors'
 copyright = author  # pylint: disable=redefined-builtin
 
