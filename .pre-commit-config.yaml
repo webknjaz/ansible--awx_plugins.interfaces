@@ -195,6 +195,7 @@ repos:
     - hypothesis
     - lxml  # dep of `--txt-report`, `--cobertura-xml-report` & `--html-report`
     - pytest
+    - pytest-mock
     args:
     - --python-version=3.13
     - --any-exprs-report=.tox/.tmp/.test-results/mypy--py-3.13
@@ -212,6 +213,7 @@ repos:
     - hypothesis
     - lxml  # dep of `--txt-report`, `--cobertura-xml-report` & `--html-report`
     - pytest
+    - pytest-mock
     args:
     - --python-version=3.12
     - --any-exprs-report=.tox/.tmp/.test-results/mypy--py-3.12
@@ -229,6 +231,7 @@ repos:
     - hypothesis
     - lxml  # dep of `--txt-report`, `--cobertura-xml-report` & `--html-report`
     - pytest
+    - pytest-mock
     args:
     - --python-version=3.11
     - --any-exprs-report=.tox/.tmp/.test-results/mypy--py-3.11
@@ -249,6 +252,7 @@ repos:
     - hypothesis  # needed by pylint-pytest due to pytest-cov loading coverage
     - pylint-pytest ~= 2.0.0a0
     - pytest-cov  # needed by pylint-pytest since it picks up pytest's args
+    - pytest-mock  # needed by pylint-pytest since it picks up pytest's args
     - pytest-xdist  # needed by pylint-pytest since it picks up pytest's args
     - Sphinx  # needed by the Sphinx extension stub
 
