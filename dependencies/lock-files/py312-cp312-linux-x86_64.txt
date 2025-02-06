@@ -4,11 +4,11 @@
 #
 #    tox r -e pip-compile-tox-env-lock -- py pyproject.toml --upgrade
 #
-attrs==24.2.0
+attrs==25.1.0
     # via hypothesis
 covdefaults==2.3.0
     # via -r dependencies/direct/py.in
-coverage==7.6.8
+coverage==7.6.10
     # via
     #   -r dependencies/direct/py.in
     #   covdefaults
@@ -18,15 +18,19 @@ coverage-enable-subprocess==1.0
     # via -r dependencies/direct/py.in
 execnet==2.1.1
     # via pytest-xdist
-hypothesis==6.119.4
+hypothesis==6.125.1
     # via -r dependencies/direct/py.in
 iniconfig==2.0.0
     # via pytest
+jinja2==3.1.5
+    # via -r dependencies/direct/py.in
+markupsafe==3.0.2
+    # via jinja2
 packaging==24.2
     # via pytest
 pluggy==1.5.0
     # via pytest
-pytest==8.3.3
+pytest==8.3.4
     # via
     #   -r dependencies/direct/py.in
     #   pytest-cov
@@ -37,6 +41,8 @@ pytest-cov==6.0.0
 pytest-mock==3.14.0
     # via -r dependencies/direct/py.in
 pytest-xdist==3.6.1
+    # via -r dependencies/direct/py.in
+pyyaml==6.0.2
     # via -r dependencies/direct/py.in
 sortedcontainers==2.4.0
     # via hypothesis
