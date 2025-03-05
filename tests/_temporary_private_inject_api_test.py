@@ -599,3 +599,53 @@ def test_custom_injectors_safe_env(
     )
 
     assert safe_env.items() == expected_safe_env.items()
+
+
+@pytest.mark.parametrize(
+    (
+        'container_root',
+        'expected_arg_prefix',
+    ),
+    (
+        pytest.param(
+            None,
+            f'@{CONTAINER_ROOT}/',
+            id='default-root',
+        ),
+        pytest.param(
+            '/custom_root',
+            '@/custom_root/',
+            id='custom-root',
+        ),
+    ),
+)
+def test_custom_container_root_with_extra_vars(
+    private_data_dir: str,
+    container_root: str | None,
+    expected_arg_prefix: str,
+) -> None:
+    """Check custom container root with extra vars."""
+    cred_type = ManagedCredentialType(
+        kind='cloudh',
+        name='SomeCloudi',
+        namespace='foo',
+        managed=True,
+        inputs={},
+        injectors={'extra_vars': {'api_secret': '{{api_secret}}'}},
+    )
+    credential = Credential(inputs={})
+
+    env: EnvVarsType = {}
+    cmdline_args: list[str] = []
+    inject_credential(
+        cred_type,
+        credential,
+        env,
+        {},
+        cmdline_args,
+        private_data_dir,
+        container_root=container_root,
+    )
+
+    assert cmdline_args[0] == '-e'
+    assert cmdline_args[1].startswith(expected_arg_prefix)

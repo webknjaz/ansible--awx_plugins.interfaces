@@ -87,3 +87,58 @@ def test_paths_outside_private_path_conversion(
         get_incontainer_path(typed_host_path, typed_host_runner_path)
 
     assert isinstance(raised_exc_info.value.__cause__, ValueError)
+
+
+@pytest.mark.parametrize(
+    (
+        'host_path',
+        'host_runner_path',
+        'container_root',
+        'expected_incontainer_path',
+    ),
+    (
+        ('/root', '/', '/tmp', '/tmp/root'),
+        (
+            '/tmp/private/subdir',
+            '/tmp/private',
+            '/tmp/private',
+            '/tmp/private/subdir',
+        ),
+        (
+            '/tmp/private/subdir',
+            '/tmp/private',
+            None,
+            f'{CONTAINER_ROOT}/subdir',
+        ),
+    ),
+    ids=('differing-paths', 'same-paths', 'default-container-root'),
+)
+@pytest.mark.parametrize(
+    'convert_path_to_type',
+    (pathlib.Path, str),
+    ids=('host-path-pathlib', 'host-path-str'),
+)
+@pytest.mark.parametrize(
+    'convert_runner_path_to_type',
+    (pathlib.Path, str),
+    ids=('host-path-pathlib', 'host-path-str'),
+)
+# pylint: disable-next=too-many-arguments,too-many-positional-arguments
+def test_provide_custom_container_root(  # noqa: WPS211
+        host_path: os.PathLike[str] | str,
+        host_runner_path: os.PathLike[str] | str,
+        container_root: os.PathLike[str] | str | None,
+        expected_incontainer_path: str,
+        convert_path_to_type: PathToTypeCallableType,
+        convert_runner_path_to_type: PathToTypeCallableType,
+) -> None:
+    """Ensure custom container root is respected."""
+    typed_host_path = convert_path_to_type(host_path)
+    typed_host_runner_path = convert_runner_path_to_type(host_runner_path)
+
+    incontainer_path = get_incontainer_path(
+        typed_host_path,
+        typed_host_runner_path,
+        container_root=container_root,
+    )
+    assert expected_incontainer_path == incontainer_path

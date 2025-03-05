@@ -18,6 +18,8 @@ running a job."""
 def get_incontainer_path(
         path: os.PathLike[str] | str,
         private_data_dir: os.PathLike[str] | str,
+        *,
+        container_root: os.PathLike[str] | str | None = None,
 ) -> str:
     """Produce an in-container path string.
 
@@ -30,6 +32,8 @@ def get_incontainer_path(
     :param path: Host-side path view.
     :param private_data_dir: Host-side directory mounted to ``/runner``
                              in container.
+    :param container_root: Container-side root directory to mount the private
+                           data directory to.
 
     :raises RuntimeError: If the private data directory is not absolute or does
                           not contain the path.
@@ -39,7 +43,10 @@ def get_incontainer_path(
     if not os.path.isabs(private_data_dir):
         raise RuntimeError('The private_data_dir path must be absolute')
 
-    container_root = pathlib.Path(CONTAINER_ROOT)
+    container_root_path = pathlib.Path(
+        CONTAINER_ROOT if container_root is None
+        else container_root,
+    )
 
     # NOTE: Due to how `tempfile.mkstemp()` works, we are probably passed
     # NOTE: a resolved `path`, but unresolved `private_data_dir``.
@@ -47,7 +54,10 @@ def get_incontainer_path(
     resolved_pdd = pathlib.Path(private_data_dir).resolve()
 
     try:
-        return str(container_root / resolved_path.relative_to(resolved_pdd))
+        return str(
+            container_root_path /
+            resolved_path.relative_to(resolved_pdd),
+        )
     except ValueError as val_err:
         raise RuntimeError(
             f'Cannot convert path {resolved_path !s} '
