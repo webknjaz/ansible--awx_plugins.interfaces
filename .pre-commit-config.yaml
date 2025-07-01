@@ -37,11 +37,6 @@ repos:
   hooks:
   - id: no_optional
 
-- repo: https://github.com/asottile/add-trailing-comma.git
-  rev: v3.1.0
-  hooks:
-  - id: add-trailing-comma
-
 - repo: https://github.com/asottile/pyupgrade.git
   rev: v3.19.1
   hooks:
@@ -49,31 +44,22 @@ repos:
     args:
     - --py311-plus
 
-- repo: https://github.com/PyCQA/isort.git
-  rev: 6.0.1
+- repo: https://github.com/astral-sh/ruff-pre-commit.git
+  rev: v0.11.6
   hooks:
-  - id: isort
-    args:
-    - --honor-noqa
+  - id: ruff-format
+    alias: ruff-format-first-pass
 
-- repo: local
+- repo: https://github.com/asottile/add-trailing-comma.git
+  rev: v3.1.0
   hooks:
-  - id: docformatter
-    name: docformatter
-    description: Formats docstrings to follow PEP 257.
-    entry: python -Im docformatter
-    additional_dependencies:
-    - docformatter == 1.7.5
-    args:
-    - --in-place
-    language: python
-    types:
-    - python
+  - id: add-trailing-comma
 
-- repo: https://github.com/hhatto/autopep8.git
-  rev: v2.3.2
+- repo: https://github.com/astral-sh/ruff-pre-commit.git
+  rev: v0.11.6
   hooks:
-  - id: autopep8
+  - id: ruff-format
+    alias: ruff-format-second-pass
 
 - repo: https://github.com/Lucas-C/pre-commit-hooks.git
   rev: v1.5.5
