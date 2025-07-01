@@ -256,12 +256,13 @@ repos:
     additional_dependencies:
     - covdefaults  # needed by pylint-pytest due to pytest-cov loading coverage
     - hypothesis  # needed by pylint-pytest due to pytest-cov loading coverage
+    - Jinja2  # needed by pylint-pytest since it imports test modules
     - pylint-pytest ~= 2.0.0a0
     - pytest-cov  # needed by pylint-pytest since it picks up pytest's args
     - pytest-mock  # needed by pylint-pytest since it picks up pytest's args
     - pytest-xdist  # needed by pylint-pytest since it picks up pytest's args
+    - PyYAML  # needed by pylint-pytest since it imports test modules
     - Sphinx  # needed by the Sphinx extension stub
     - tox  # needed by `toxfile.py`
-    - PyYaml  # ModuleNotFoundError: No module named 'yaml' without this
 
 ...
