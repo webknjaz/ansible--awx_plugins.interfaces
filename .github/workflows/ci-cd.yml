@@ -519,16 +519,10 @@ jobs:
         - doctest-docs
         - linkcheck-docs
         - spellcheck-docs
-        environment-variables:
-        - ''
-        tox-run-posargs:
-        - ''
         xfail:
         - false
-        check-name:
-        - ''
       fail-fast: false
-    uses: ./.github/workflows/reusable-tox.yml
+    uses: tox-dev/workflow/.github/workflows/reusable-tox.yml@208490c75f7f6b81e2698cc959f24d264c462d57  # yamllint disable-line rule:line-length
     with:
       built-wheel-names: >-
         ${{
@@ -538,24 +532,16 @@ jobs:
         }}
       cache-key-for-dependency-files: >-
         ${{ needs.pre-setup.outputs.cache-key-for-dep-files }}
-      check-name: >-
-        ${{ matrix.check-name }}
-      # NOTE: `pre-commit --show-diff-on-failure` and
-      # NOTE: `sphinxcontrib-spellcheck` with Git authors allowlist enabled
-      # NOTE: both depend on the presence of a Git repository.
-      checkout-src-from-git: >-
-        ${{
-          contains(
-            fromJSON('["pre-commit", "spellcheck-docs"]'),
-            matrix.toxenv
-          )
-        }}
       checkout-src-git-committish: >-
         ${{ github.event.inputs.release-committish }}
+      checkout-src-git-fetch-depth: >-
+        ${{
+          fromJSON(needs.pre-setup.outputs.release-requested)
+          && 1
+          || 0
+        }}
       dists-artifact-name: >-
         ${{ needs.pre-setup.outputs.dists-artifact-name }}
-      environment-variables: >-
-        ${{ matrix.environment-variables }}
       post-toxenv-preparation-command: >-
         ${{
           matrix.toxenv == 'pre-commit'
@@ -564,19 +550,46 @@ jobs:
         }}
       python-version: >-
         ${{ matrix.python-version }}
-      release-requested: >-
-        ${{ needs.pre-setup.outputs.release-requested }}
+      require-successful-codecov-uploads: >-
+        ${{
+          toJSON(
+          needs.pre-setup.outputs.upstream-repository-id
+          == github.repository_id
+          )
+        }}
       runner-vm-os: >-
         ${{ matrix.runner-vm-os }}
+      # NOTE: `pre-commit --show-diff-on-failure` and
+      # NOTE: `sphinxcontrib-spellcheck` with Git authors allowlist enabled
+      # NOTE: both depend on the presence of a Git repository.
       source-tarball-name: >-
-        ${{ needs.pre-setup.outputs.sdist-artifact-name }}
-      timeout-minutes: 3
+        ${{
+          !contains(
+            fromJSON('["pre-commit", "spellcheck-docs"]'),
+            matrix.toxenv
+          )
+          && needs.pre-setup.outputs.sdist-artifact-name
+          || ''
+        }}
+      # NOTE: `pre-commit` and `sphinxcontrib-spellcheck` both depend on Git.
+      # NOTE: `linkcheck` does many network queries.
+      # NOTE: They may get slower due to network I/O, hence bigger timeout.
+      timeout-minutes: >-
+        ${{
+          matrix.toxenv == 'linkcheck-docs'
+          && 10
+          || (
+            contains(
+              fromJSON('["pre-commit", "spellcheck-docs"]'),
+              matrix.toxenv
+            )
+            && 4
+            || 2
+          )
+        }}
       toxenv: >-
         ${{ matrix.toxenv }}
-      tox-run-posargs: >-
-        ${{ matrix.tox-run-posargs }}
-      upstream-repository-id: >-
-        ${{ needs.pre-setup.outputs.upstream-repository-id }}
+      tox-tool-deps: tox
       xfail: >-
         ${{
           fromJSON(needs.pre-setup.outputs.is-yolo-mode)
@@ -610,20 +623,31 @@ jobs:
         xfail:
         - false
 
-    uses: ./.github/workflows/reusable-tox.yml
+    uses: tox-dev/workflow/.github/workflows/reusable-tox.yml@208490c75f7f6b81e2698cc959f24d264c462d57  # yamllint disable-line rule:line-length
     with:
       built-wheel-names: >-
         ${{ needs.pre-setup.outputs.wheel-artifact-name }}
       cache-key-for-dependency-files: >-
         ${{ needs.pre-setup.outputs.cache-key-for-dep-files }}
-      checkout-src-git-committish: >-
-        ${{ github.event.inputs.release-committish }}
+      check-name: >-
+        🧪 🐍${{
+          matrix.python-version
+        }} @ ${{
+          matrix.runner-vm-os
+        }}
       dists-artifact-name: >-
         ${{ needs.pre-setup.outputs.dists-artifact-name }}
+      job-dependencies-context: >-  # context for hooks
+        ${{ toJSON(needs) }}
       python-version: >-
         ${{ matrix.python-version }}
-      release-requested: >-
-        ${{ needs.pre-setup.outputs.release-requested }}
+      require-successful-codecov-uploads: >-
+        ${{
+          toJSON(
+          needs.pre-setup.outputs.upstream-repository-id
+          == github.repository_id
+          )
+        }}
       runner-vm-os: >-
         ${{ matrix.runner-vm-os }}
       source-tarball-name: >-
@@ -631,6 +655,8 @@ jobs:
       timeout-minutes: 5
       toxenv: >-
         ${{ matrix.toxenv }}
+      # tox-provision-args: >-
+      #   --force-dep '...'
       tox-run-posargs: >-
         --cov-report=xml:.tox/.tmp/.test-results/pytest-${{
           matrix.python-version
@@ -642,8 +668,7 @@ jobs:
         --no-cov
         -vvvvv
         --lf
-      upstream-repository-id: >-
-        ${{ needs.pre-setup.outputs.upstream-repository-id }}
+      tox-tool-deps: tox
       xfail: >-
         ${{
           fromJSON(needs.pre-setup.outputs.is-yolo-mode)
