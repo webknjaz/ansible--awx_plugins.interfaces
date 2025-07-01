@@ -76,13 +76,10 @@ def build_safe_env(
     """
     safe_env = dict(env)
     for env_k, env_v in safe_env.items():
-        is_special = (
-            env_k == 'AWS_ACCESS_KEY_ID'
-            or (
-                env_k.startswith('ANSIBLE_')
-                and not env_k.startswith('ANSIBLE_NET')
-                and not env_k.startswith('ANSIBLE_GALAXY_SERVER')
-            )
+        is_special = env_k == 'AWS_ACCESS_KEY_ID' or (
+            env_k.startswith('ANSIBLE_')
+            and not env_k.startswith('ANSIBLE_NET')
+            and not env_k.startswith('ANSIBLE_GALAXY_SERVER')
         )
         if is_special:
             continue
@@ -90,7 +87,8 @@ def build_safe_env(
             safe_env[env_k] = HIDDEN_PASSWORD
         elif isinstance(env_v, str) and HIDDEN_URL_PASSWORD_RE.match(env_v):
             safe_env[env_k] = HIDDEN_URL_PASSWORD_RE.sub(
-                HIDDEN_PASSWORD, env_v,
+                HIDDEN_PASSWORD,
+                env_v,
             )
     return safe_env
 
@@ -122,8 +120,13 @@ def _build_extra_vars(
     """
     if isinstance(node, Mapping):
         return {
-            str(_build_extra_vars(sandbox, namespace, entry)):
-                _build_extra_vars(sandbox, namespace, v)
+            str(
+                _build_extra_vars(sandbox, namespace, entry),
+            ): _build_extra_vars(
+                sandbox,
+                namespace,
+                v,
+            )
             for entry, v in node.items()
         }
     if isinstance(node, list):
@@ -191,7 +194,9 @@ def inject_credential(
         if cred_type.managed and cred_type.custom_injectors:
             injected_env: EnvVarsType = {}
             cred_type.custom_injectors(
-                credential, injected_env, private_data_dir,
+                credential,
+                injected_env,
+                private_data_dir,
             )
             env.update(injected_env)
             safe_env.update(build_safe_env(injected_env))
@@ -240,7 +245,7 @@ def inject_credential(
         # make sure private keys end with a \n
         if field.get('format') == 'ssh_private_key':
             if field_id in namespace and not str(namespace[field_id]).endswith(
-                    '\n',
+                '\n',
             ):
                 namespace[field_id] = str(namespace[field_id]) + '\n'
 
@@ -286,13 +291,16 @@ def inject_credential(
             sandbox_env,
             namespace,
             cred_type.injectors.get(
-                'extra_vars', {},
+                'extra_vars',
+                {},
             ),
         )
         if extra_vars:
             path = _build_extra_vars_file(extra_vars, private_data_dir)
             container_path = get_incontainer_path(
-                path, private_data_dir, container_root=container_root,
+                path,
+                private_data_dir,
+                container_root=container_root,
             )
             args.extend(
                 # pylint: disable-next=consider-using-f-string

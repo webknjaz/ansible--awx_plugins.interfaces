@@ -26,11 +26,11 @@ PathToTypeCallableType = Callable[[PathOrStringType], PathOrStringType]
 @pytest.mark.parametrize('convert_path_to_type', (pathlib.Path, str))
 @pytest.mark.parametrize('convert_runner_path_to_type', (pathlib.Path, str))
 def test_host_to_incontainer_path_conversion(
-        host_path: os.PathLike[str] | str,
-        host_runner_path: os.PathLike[str] | str,
-        expected_incontainer_path: str,
-        convert_path_to_type: PathToTypeCallableType,
-        convert_runner_path_to_type: PathToTypeCallableType,
+    host_path: os.PathLike[str] | str,
+    host_runner_path: os.PathLike[str] | str,
+    expected_incontainer_path: str,
+    convert_path_to_type: PathToTypeCallableType,
+    convert_runner_path_to_type: PathToTypeCallableType,
 ) -> None:
     """Ensure the positive case path conversion works."""
     typed_host_path = convert_path_to_type(host_path)
@@ -46,8 +46,8 @@ def test_host_to_incontainer_path_conversion(
 @pytest.mark.parametrize('host_runner_path', ('', 'somewhere/'))
 @pytest.mark.parametrize('convert_runner_path_to_type', (pathlib.Path, str))
 def test_relative_private_data_path_conversion(
-        host_runner_path: os.PathLike[str] | str,
-        convert_runner_path_to_type: PathToTypeCallableType,
+    host_runner_path: os.PathLike[str] | str,
+    convert_runner_path_to_type: PathToTypeCallableType,
 ) -> None:
     """Ensure relative data paths are rejected."""
     typed_host_runner_path = convert_runner_path_to_type(host_runner_path)
@@ -67,10 +67,10 @@ def test_relative_private_data_path_conversion(
 @pytest.mark.parametrize('convert_path_to_type', (pathlib.Path, str))
 @pytest.mark.parametrize('convert_runner_path_to_type', (pathlib.Path, str))
 def test_paths_outside_private_path_conversion(
-        host_path: os.PathLike[str] | str,
-        host_runner_path: os.PathLike[str] | str,
-        convert_path_to_type: PathToTypeCallableType,
-        convert_runner_path_to_type: PathToTypeCallableType,
+    host_path: os.PathLike[str] | str,
+    host_runner_path: os.PathLike[str] | str,
+    convert_path_to_type: PathToTypeCallableType,
+    convert_runner_path_to_type: PathToTypeCallableType,
 ) -> None:
     """Ensure paths external to private data path are rejected."""
     resolved_host_path = pathlib.Path(host_path).resolve()
@@ -80,8 +80,8 @@ def test_paths_outside_private_path_conversion(
     typed_host_runner_path = convert_runner_path_to_type(host_runner_path)
 
     err_msg_pattern = (
-        f'^Cannot convert path {resolved_host_path !s} unless it is '
-        f'a subdir of {resolved_host_runner_path !s}$'
+        f'^Cannot convert path {resolved_host_path!s} unless it is '
+        f'a subdir of {resolved_host_runner_path!s}$'
     )
     with pytest.raises(RuntimeError, match=err_msg_pattern) as raised_exc_info:
         get_incontainer_path(typed_host_path, typed_host_runner_path)
@@ -125,12 +125,12 @@ def test_paths_outside_private_path_conversion(
 )
 # pylint: disable-next=too-many-arguments,too-many-positional-arguments
 def test_provide_custom_container_root(  # noqa: WPS211
-        host_path: os.PathLike[str] | str,
-        host_runner_path: os.PathLike[str] | str,
-        container_root: os.PathLike[str] | str | None,
-        expected_incontainer_path: str,
-        convert_path_to_type: PathToTypeCallableType,
-        convert_runner_path_to_type: PathToTypeCallableType,
+    host_path: os.PathLike[str] | str,
+    host_runner_path: os.PathLike[str] | str,
+    container_root: os.PathLike[str] | str | None,
+    expected_incontainer_path: str,
+    convert_path_to_type: PathToTypeCallableType,
+    convert_runner_path_to_type: PathToTypeCallableType,
 ) -> None:
     """Ensure custom container root is respected."""
     typed_host_path = convert_path_to_type(host_path)

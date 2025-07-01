@@ -51,12 +51,18 @@ except ImportError:  # FIXME: eventually, this should not exist
         managed: bool = False
         """Flag for whether this plugin instance is managed."""
 
-        custom_injectors: Callable[
-            [
-                Credential,
-                EnvVarsType, str,
-            ], str | None,
-        ] | None = None
+        custom_injectors: (
+            Callable[
+                [
+                    Credential,
+                    EnvVarsType,
+                    str,
+                ],
+                str | None,
+            ]
+            | None
+        ) = None
         """Function to call as an alternative to the templated injection."""
+
 
 __all__ = ()  # noqa: WPS410

@@ -24,9 +24,9 @@ detect_server_product_name_no_cache = detect_server_product_name.__wrapped__
     ),
 )
 def test_server_product_name_detection(
-        path_exists: bool,
-        expected_license_name: str,
-        monkeypatch: pytest.MonkeyPatch,
+    path_exists: bool,
+    expected_license_name: str,
+    monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     """Check the product detection is sound."""
     with monkeypatch.context() as mp_ctx:

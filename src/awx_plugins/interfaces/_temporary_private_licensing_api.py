@@ -20,6 +20,7 @@ def detect_server_product_name() -> str:
         '/var/lib/awx/.tower_version',
     ).exists()
     return (
-        'Red Hat Ansible Automation Platform' if custom_version_file_present
+        'Red Hat Ansible Automation Platform'
+        if custom_version_file_present
         else 'AWX'
     )

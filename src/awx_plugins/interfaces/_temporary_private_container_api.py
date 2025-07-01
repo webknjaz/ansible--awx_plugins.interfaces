@@ -16,10 +16,10 @@ running a job."""
 
 
 def get_incontainer_path(
-        path: os.PathLike[str] | str,
-        private_data_dir: os.PathLike[str] | str,
-        *,
-        container_root: os.PathLike[str] | str | None = None,
+    path: os.PathLike[str] | str,
+    private_data_dir: os.PathLike[str] | str,
+    *,
+    container_root: os.PathLike[str] | str | None = None,
 ) -> str:
     """Produce an in-container path string.
 
@@ -44,8 +44,7 @@ def get_incontainer_path(
         raise RuntimeError('The private_data_dir path must be absolute')
 
     container_root_path = pathlib.Path(
-        CONTAINER_ROOT if container_root is None
-        else container_root,
+        CONTAINER_ROOT if container_root is None else container_root,
     )
 
     # NOTE: Due to how `tempfile.mkstemp()` works, we are probably passed
@@ -55,11 +54,10 @@ def get_incontainer_path(
 
     try:
         return str(
-            container_root_path /
-            resolved_path.relative_to(resolved_pdd),
+            container_root_path / resolved_path.relative_to(resolved_pdd),
         )
     except ValueError as val_err:
         raise RuntimeError(
-            f'Cannot convert path {resolved_path !s} '
-            f'unless it is a subdir of {resolved_pdd !s}',
+            f'Cannot convert path {resolved_path!s} '
+            f'unless it is a subdir of {resolved_pdd!s}',
         ) from val_err

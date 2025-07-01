@@ -22,8 +22,8 @@ def test_vmware_cert_validation_toggle_stub() -> None:
 @given(text_input=st.text())
 @pytest.mark.parametrize('invoke_gettext', (gettext_noop, gettext_lazy))
 def test_gettext_functions_returns_input(
-        invoke_gettext: Callable[[str], str],
-        text_input: str,
+    invoke_gettext: Callable[[str], str],
+    text_input: str,
 ) -> None:
     """Ensure ``gettext`` helpers return the input string."""
     assert text_input is invoke_gettext(text_input)

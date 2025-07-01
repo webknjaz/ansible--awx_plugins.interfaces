@@ -23,9 +23,9 @@ class Credential:
         self._inputs: CredentialInputType = inputs or {}
 
     def get_input(
-            self: 'Credential',
-            field_name: str,
-            default: GenericOptionalPrimitiveType = None,
+        self: 'Credential',
+        field_name: str,
+        default: GenericOptionalPrimitiveType = None,
     ) -> GenericOptionalPrimitiveType:
         """Get the user supplied value for a given field.
 
