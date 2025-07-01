@@ -261,6 +261,7 @@ repos:
     - pytest-mock  # needed by pylint-pytest since it picks up pytest's args
     - pytest-xdist  # needed by pylint-pytest since it picks up pytest's args
     - Sphinx  # needed by the Sphinx extension stub
+    - tox  # needed by `toxfile.py`
     - PyYaml  # ModuleNotFoundError: No module named 'yaml' without this
 
 ...
