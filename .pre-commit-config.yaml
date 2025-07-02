@@ -37,12 +37,13 @@ repos:
   hooks:
   - id: no_optional
 
-- repo: https://github.com/asottile/pyupgrade.git
-  rev: v3.19.1
+- repo: https://github.com/astral-sh/ruff-pre-commit.git
+  rev: v0.11.6
   hooks:
-  - id: pyupgrade
+  - id: ruff
     args:
-    - --py311-plus
+    # Ref: https://docs.astral.sh/ruff/formatter/#conflicting-lint-rules
+    - --fix  # NOTE: When `--fix` is used, linting should be before ruff-format
 
 - repo: https://github.com/astral-sh/ruff-pre-commit.git
   rev: v0.11.6

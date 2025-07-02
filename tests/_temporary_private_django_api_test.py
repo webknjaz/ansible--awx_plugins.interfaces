@@ -3,7 +3,11 @@
 from collections.abc import Callable
 
 import pytest
-from hypothesis import example, given, strategies as st
+from hypothesis import (
+    example,
+    given,
+    strategies as st,
+)
 
 from awx_plugins.interfaces._temporary_private_django_api import (
     get_vmware_certificate_validation_setting,
