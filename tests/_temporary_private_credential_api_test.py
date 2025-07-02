@@ -21,9 +21,9 @@ def test_credential_instantiation() -> None:
     ),
 )
 def test_credential_get_input(
-        inputs: dict[str, GenericOptionalPrimitiveType],
-        key: str,
-        expected: str,
+    inputs: dict[str, GenericOptionalPrimitiveType],
+    key: str,
+    expected: str,
 ) -> None:
     """Check that get_input operates on the dict we provided."""
     assert Credential(inputs=inputs).get_input(key) == expected
@@ -47,9 +47,9 @@ def test_credential_get_input(
     ),
 )
 def test_credential_has_input(
-        inputs: dict[str, GenericOptionalPrimitiveType],
-        key: str,
-        expected: bool,
+    inputs: dict[str, GenericOptionalPrimitiveType],
+    key: str,
+    expected: bool,
 ) -> None:
     """Check that has_input behaves like dict in operator."""
     assert Credential(inputs=inputs).has_input(key) is expected

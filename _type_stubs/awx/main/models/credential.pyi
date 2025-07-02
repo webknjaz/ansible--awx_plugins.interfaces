@@ -9,7 +9,6 @@ from awx_plugins.interfaces._temporary_private_credential_api import (  # noqa: 
     Credential,
 )
 
-
 class ManagedCredentialType:
     namespace: str
     name: str
@@ -17,12 +16,17 @@ class ManagedCredentialType:
     inputs: InputDefinitionType
     injectors: InjectorDefinitionType = None
     managed: bool = False
-    custom_injectors: Callable[
-        [
-            Credential,
-            EnvVarsType, str,
-        ], str | None,
-    ] | None = None
+    custom_injectors: (
+        Callable[
+            [
+                Credential,
+                EnvVarsType,
+                str,
+            ],
+            str | None,
+        ]
+        | None
+    ) = None
 
     def __init__(
         self,
@@ -32,5 +36,8 @@ class ManagedCredentialType:
         inputs: InputDefinitionType,
         injectors: InjectorDefinitionType = None,
         managed: bool = False,
-        custom_injectors: Callable[['Credential', EnvVarsType, str], str | None] | None = None,
+        custom_injectors: Callable[
+            ['Credential', EnvVarsType, str], str | None
+        ]
+        | None = None,
     ): ...

@@ -66,3 +66,6 @@
 #   follow-up PR to the actual reformatting PR that you are trying to
 #   ignore. This approach helps avoid issues with arbitrary rebases
 #   and squashes while the pull request is in progress.
+
+
+12002456a10b5d6c8ce214b53af880ff7069141b  # 💅🤖 Auto-format entire repository with Ruff

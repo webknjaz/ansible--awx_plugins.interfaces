@@ -195,7 +195,7 @@ def test_injectors_with_env_vars(
 
 
 def test_injectors_with_jinja_syntax_error(
-        private_data_dir: str,
+    private_data_dir: str,
 ) -> None:
     """Check malicious jinja is not allowed."""
     cred_type = ManagedCredentialType(
@@ -240,7 +240,12 @@ def test_injectors_with_secret_field(private_data_dir: str) -> None:
     env: EnvVarsType = {}
     safe_env: EnvVarsType = {}
     inject_credential(
-        cred_type, credential, env, safe_env, [], private_data_dir,
+        cred_type,
+        credential,
+        env,
+        safe_env,
+        [],
+        private_data_dir,
     )
 
     assert env['MY_CLOUD_PRIVATE_VAR'] == 'SUPER-SECRET-123'
@@ -368,11 +373,11 @@ def test_injectors_with_secret_field(private_data_dir: str) -> None:
     ),
 )
 def test_injectors_with_extra_vars(
-        private_data_dir: str,
-        inputs: InputDefinitionType,
-        injectors: InjectorDefinitionType,
-        cred_inputs: CredentialInputType,
-        expected_extra_vars: dict[str, str],
+    private_data_dir: str,
+    inputs: InputDefinitionType,
+    injectors: InjectorDefinitionType,
+    cred_inputs: CredentialInputType,
+    expected_extra_vars: dict[str, str],
 ) -> None:
     """Check extra vars are injected in a file."""
     cred_type = ManagedCredentialType(
@@ -427,11 +432,13 @@ def test_injectors_inv_update_id(private_data_dir: str) -> None:
     (
         pytest.param(
             {
-                'fields': [{
-                    'id': 'api_token',
-                    'label': 'API Token',
-                    'type': 'string',
-                }],
+                'fields': [
+                    {
+                        'id': 'api_token',
+                        'label': 'API Token',
+                        'type': 'string',
+                    },
+                ],
             },
             {
                 'file': {'template': '[mycloud]\n{{api_token}}'},
@@ -493,11 +500,11 @@ def test_injectors_inv_update_id(private_data_dir: str) -> None:
     ),
 )
 def test_injectors_with_file(
-        private_data_dir: str,
-        inputs: InputDefinitionType,
-        injectors: InjectorDefinitionType,
-        cred_inputs: CredentialInputType,
-        expected_file_content: dict[str, str],
+    private_data_dir: str,
+    inputs: InputDefinitionType,
+    injectors: InjectorDefinitionType,
+    cred_inputs: CredentialInputType,
+    expected_file_content: dict[str, str],
 ) -> None:
     """Check data flows from credential into a file."""
     cred_type = ManagedCredentialType(
@@ -520,7 +527,8 @@ def test_injectors_with_file(
 
 
 @pytest.mark.parametrize(
-    'managed', (True, False),  # noqa: WPS425
+    'managed',
+    (True, False),  # noqa: WPS425
 )
 def test_custom_injectors(private_data_dir: str, managed: bool) -> None:
     """Check that custom injectors is used when defined."""
@@ -574,6 +582,7 @@ def test_custom_injectors_safe_env(
     expected_safe_env: EnvVarsType,
 ) -> None:
     """Check that special env vars are obscured in safe env."""
+
     def custom_injectors(_cr: Credential, env: EnvVarsType, _pd: str) -> None:
         env |= custom_injectors_env
 

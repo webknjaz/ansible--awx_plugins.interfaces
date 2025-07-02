@@ -8,6 +8,7 @@ try:  # noqa: WPS503
     # FIXME: delete Django imports from this project
     from django.conf import settings  # noqa: WPS433
 except ImportError:
+
     def get_vmware_certificate_validation_setting() -> bool:
         """Retrieve VMware certificate validation platform toggle.
 
@@ -17,6 +18,7 @@ except ImportError:
         """
         return True
 else:  # FIXME: eventually, this should not exist  # pragma: no cover
+
     def get_vmware_certificate_validation_setting() -> bool:  # noqa: WPS440
         """Retrieve VMware certificate validation platform toggle.
 
@@ -32,6 +34,7 @@ try:
         gettext_lazy as gettext_lazy,
     )
 except ImportError:  # FIXME: eventually, this should not exist
+
     def gettext_lazy(message: str) -> str:  # noqa: WPS440
         """Emulate a Django-imported lazy translator.
 
@@ -48,6 +51,7 @@ try:
         gettext_noop as gettext_noop,
     )
 except ImportError:  # FIXME: eventually, this should not exist
+
     def gettext_noop(message: str) -> str:  # noqa: WPS440
         """Emulate a Django-imported no-op.
 

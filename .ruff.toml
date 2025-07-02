@@ -1,0 +1,150 @@
+line-length = 79  # Accessibility-friendly
+
+namespace-packages = [
+  "bin/",
+  "docs/",
+  "src/awx_plugins/",
+  "tests/",
+]
+
+[format]
+quote-style = "single"
+
+[lint]
+external = [
+  "WPS",  # Do not remove noqa for wemake-python-style (WPS) checks
+]
+ignore = [
+  "CPY001",  # Skip copyright notice requirement at top of files
+
+  "A001",  # builtin-variable-shadowing  # FIXME / noqa
+
+  "ANN204",  # missing-return-type-special-method  # FIXME
+
+  "C901",  # complex-structure  # FIXME
+
+  "COM812",  # missing-trailing-comma  # FIXME
+
+  # Refs:
+  # * https://github.com/astral-sh/ruff/issues/6606
+  # * https://github.com/astral-sh/ruff/pull/13286
+  "DOC201",  # Ruff doesn't understand sphinx-native param lists
+  "DOC402",  # docstring-missing-yields  # Ruff doesn't understand sphinx-native param lists
+  "DOC501",  # docstring-missing-exception  # Ruff doesn't understand sphinx-native param lists
+
+  "EM101",  # raw-string-in-exception  # FIXME
+  "EM102",  # f-string-in-exception  # FIXME
+
+  # Ref: https://github.com/astral-sh/ruff/issues/4845#issuecomment-2816845547
+  "ERA001",  # False-positives in commented-out code
+
+  "FBT001",  # boolean-type-hint-positional-argument  # FIXME / noqa
+
+  "FIX001",  # line-contains-fixme  # FIXME
+
+  "FURB101",  # read-whole-file  # FIXME
+  "FURB103",  # write-whole-file  # FIXME
+  "FURB167",  # regex-flag-alias  # FIXME
+
+  "PLC0414",  # useless-import-alias  # needed for MyPy explicit re-exports
+
+  "PLR0912",  # too-many-branches  # FIXME
+  "PLR0913",  # too-many-arguments  # FIXME / noqa
+  "PLR0914",  # too-many-locals  # FIXME / noqa
+  "PLR0915",  # too-many-statements  # FIXME / noqa
+  "PLR0917",  # too-many-positional-arguments  # FIXME / noqa
+  "PLR6301",  # no-self-use  # FIXME / noqa
+
+  "PLW0129",  # assert-on-string-literal  # FIXME
+  "PLW1514",  # unspecified-encoding  # FIXME
+
+  "PTH101",  # os-chmod  # FIXME
+  "PTH102",  # os-mkdir  # FIXME
+  "PTH117",  # os-path-isabs  # FIXME
+  "PTH118",  # os-path-join  # FIXME
+  "PTH123",  # builtin-open  # FIXME
+
+  "PYI020",  # quoted-annotation-in-stub  # FIXME
+
+  "SIM102",  # collapsible-if  # FIXME
+  "SIM300",  # yoda-conditions  # FIXME
+
+  "T201",  # print  # FIXME
+
+  "TD001",   # invalid-todo-tag  # FIXME
+  "TD002",   # missing-todo-author  # FIXME
+  "TD003",   # missing-todo-link  # FIXME
+  "TRY003",  # raise-vanilla-args  # controversial
+
+  "UP007",  # non-pep604-annotation-union  # FIXME
+  "UP031",  # printf-string-formatting  # FIXME
+  "UP035",  # deprecated-import  # FIXME
+  "UP037",  # quoted-annotation  # FIXME
+
+  "RUF005",  # collection-literal-concatenation  # FIXME
+  "RUF039",  # unraw-re-pattern  # FIXME
+  "RUF043",  # pytest-raises-ambiguous-pattern  # FIXME
+  "RUF100",  # Ruff doesn't know about WPS
+]
+preview = true  # Live dangerously
+select = [
+  "ALL",
+]
+task-tags = [
+  "FIXME",
+  "NOTE",
+  "Ref",
+  "Refs",
+  "TODO",
+]
+
+[lint.flake8-pytest-style]
+parametrize-values-type = "tuple"
+
+[lint.flake8-quotes]
+inline-quotes = "single"
+
+[lint.isort]
+combine-as-imports = true
+force-wrap-aliases = true
+lines-after-imports = 2
+section-order = [
+  "future",
+  "standard-library",
+  "testing",
+  "frameworks",
+  "platforms",
+  "third-party",
+  "first-party",
+  "local-folder",
+]
+
+[lint.isort.sections]
+frameworks = [
+  "awx",
+  "django",
+]
+platforms = [
+  # "awx_plugins.interfaces",
+]
+testing = [
+  "hypothesis",
+  "pytest",
+  "pytest_mock",
+  "pytest_subtests",
+]
+
+[lint.per-file-ignores]
+"tests/**.py" = [
+  # The following ignores have been researched and should be considered permanent
+  # each should be preceded with an explanation of each of the error codes
+  # If other ignores are added for a specific file in the section following this,
+  # these will need to be added to that line as well.
+
+  "PLC2701", # Allow importing internal files needed for testing
+  "S101",    # Allow use of `assert` in test files
+  "S108",    # tmp dirs
+]
+
+[lint.pydocstyle]
+convention = "pep257"
