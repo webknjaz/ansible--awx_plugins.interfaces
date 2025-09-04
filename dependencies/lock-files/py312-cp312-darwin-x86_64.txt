@@ -18,7 +18,7 @@ coverage-enable-subprocess==1.0
     # via -r dependencies/direct/py.in
 execnet==2.1.1
     # via pytest-xdist
-hypothesis==6.138.11
+hypothesis==6.138.14
     # via -r dependencies/direct/py.in
 iniconfig==2.1.0
     # via pytest
@@ -34,7 +34,7 @@ pluggy==1.6.0
     #   pytest-cov
 pygments==2.19.2
     # via pytest
-pytest==8.4.1
+pytest==8.4.2
     # via
     #   -r dependencies/direct/py.in
     #   pytest-cov
