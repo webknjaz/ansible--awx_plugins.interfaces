@@ -144,5 +144,9 @@ testing = [
   "S108",    # tmp dirs
 ]
 
+"toxfile.py" = [
+  "FIX002",  # line-contains-todo  # FIXME / noqa
+]
+
 [lint.pydocstyle]
 convention = "pep257"
