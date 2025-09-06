@@ -188,6 +188,7 @@ repos:
     - lxml  # dep of `--txt-report`, `--cobertura-xml-report` & `--html-report`
     - pytest
     - pytest-mock
+    - tox  # needed by `toxfile.py`
     - types-Jinja2
     - types-PyYAML
     args:
@@ -208,6 +209,7 @@ repos:
     - lxml  # dep of `--txt-report`, `--cobertura-xml-report` & `--html-report`
     - pytest
     - pytest-mock
+    - tox  # needed by `toxfile.py`
     - types-Jinja2
     - types-PyYAML
     args:
@@ -228,6 +230,7 @@ repos:
     - lxml  # dep of `--txt-report`, `--cobertura-xml-report` & `--html-report`
     - pytest
     - pytest-mock
+    - tox  # needed by `toxfile.py`
     - types-Jinja2
     - types-PyYAML
     args:
