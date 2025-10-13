@@ -10,9 +10,9 @@ alabaster==1.0.0
     # via sphinx
 babel==2.17.0
     # via sphinx
-beautifulsoup4==4.13.5
+beautifulsoup4==4.14.2
     # via furo
-certifi==2025.8.3
+certifi==2025.10.5
     # via requests
 charset-normalizer==3.4.3
     # via requests
@@ -21,9 +21,9 @@ docutils==0.21.2
     #   myst-parser
     #   sphinx
     #   sphinx-tabs
-furo==2025.7.19
+furo==2025.9.25
     # via -r dependencies/direct/build-docs.in
-idna==3.10
+idna==3.11
     # via requests
 imagesize==1.4.1
     # via sphinx
@@ -37,7 +37,7 @@ markdown-it-py==3.0.0
     # via
     #   mdit-py-plugins
     #   myst-parser
-markupsafe==3.0.2
+markupsafe==3.0.3
     # via jinja2
 mdit-py-plugins==0.5.0
     # via myst-parser
@@ -49,7 +49,7 @@ packaging==25.0
     # via sphinx
 pbr==7.0.1
     # via sphinxcontrib-apidoc
-pyenchant==3.2.2
+pyenchant==3.3.0
     # via sphinxcontrib-spelling
 pygments==2.19.2
     # via
@@ -57,7 +57,7 @@ pygments==2.19.2
     #   furo
     #   sphinx
     #   sphinx-tabs
-pyyaml==6.0.2
+pyyaml==6.0.3
     # via myst-parser
 requests==2.32.5
     # via
